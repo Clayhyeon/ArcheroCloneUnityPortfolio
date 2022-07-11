@@ -40,5 +40,4 @@ public class EnemyConfig : ConfigBase
     [field: SerializeField] public Distance distance;
     
     #endregion
-
 }

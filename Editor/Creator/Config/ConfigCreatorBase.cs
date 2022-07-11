@@ -17,8 +17,6 @@ public class ConfigCreatorBase : EditorWindow
     public Data asset;
     
     private int _nextId;
-
-
     
     protected void CreateConfigOnGUI(string configPath, string assetPath)
     {

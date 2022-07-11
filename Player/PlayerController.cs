@@ -71,7 +71,7 @@ public class PlayerController : ControllerBase
         
     }
 
-    private void OnMovement(Types.State changeState, Vector3 dir)
+    private void OnMovement(Vector3 dir)
     {
         if (Hp <= 0f)
         {
@@ -90,7 +90,7 @@ public class PlayerController : ControllerBase
         }
         
         MoveDir = dir * MoveSpeed;
-        State = changeState;
+        State = dir == Vector3.zero ? Types.State.Idle : Types.State.Movement;
     }
     
     protected override void UpdateIdle()

@@ -33,14 +33,11 @@ public class LoginManager : MonoBehaviour
     
     public void SignInWithGoogle()
     {
-        Debug.Log("로그인 버특 클릭");
-        
         GoogleSignIn.Configuration = _configuration;
         GoogleSignIn.Configuration.UseGameSignIn = false;
         GoogleSignIn.Configuration.RequestIdToken = true;
 
         GoogleSignIn.DefaultInstance.SignIn().ContinueWith(OnAuthenticationFinished);
-
     }
 
     public void SignOutFromGoogle()
@@ -100,15 +97,12 @@ public class LoginManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("Sign In Successful.");
                 PlayerData.Instance.userId = _auth.CurrentUser.UserId;
             }
-            Debug.Log("savemanger실행!!");
+            
             SaveManager.Instance.OnLoadPlayerCompleted += MoveLobbyScene;
             SaveManager.Instance.Init();
         });
-
-
     }
     
     #endregion

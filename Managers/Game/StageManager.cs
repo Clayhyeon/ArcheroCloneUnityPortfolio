@@ -74,6 +74,22 @@ public class StageManager : MonoBehaviour
     {
         PlayerData.Instance.OnLevelUp += LevelUp;
     }
+    
+    private void InitStage()
+    {
+        if (_stageList is null)
+        {
+            InitVariables();
+        }
+
+        if (_stageList.Count == 0)
+        {
+            FindStage();
+        }
+
+        SpawnEnemies();
+        CreatePlayer();
+    }
 
     private void InitVariables()
     {
@@ -106,34 +122,6 @@ public class StageManager : MonoBehaviour
         player.gameObject.name = "Player";
         player.GameObject().SetActive(true);
     }
-
-    private void FindStage()
-    {
-        var spawns = GameObject.Find(stage.ToString());
-        _stageCount = spawns.transform.childCount;
-
-        for (var i = 0; i < _stageCount; i++)
-        {
-            _stageList.Add(spawns.transform.GetChild(i));
-        }
-    }
-
-    private void InitStage()
-    {
-        if (_stageList is null)
-        {
-            InitVariables();
-        }
-
-        if (_stageList.Count == 0)
-        {
-            FindStage();
-        }
-
-        SpawnEnemies();
-        CreatePlayer();
-    }
-
     private void SpawnEnemies()
     {
         if (_enemySpawn is not null)
@@ -165,6 +153,17 @@ public class StageManager : MonoBehaviour
         }
     }
 
+    private void FindStage()
+    {
+        var spawns = GameObject.Find(stage.ToString());
+        _stageCount = spawns.transform.childCount;
+
+        for (var i = 0; i < _stageCount; i++)
+        {
+            _stageList.Add(spawns.transform.GetChild(i));
+        }
+    }
+    
     public Transform GetPlayer()
     {
         return player;
@@ -198,28 +197,7 @@ public class StageManager : MonoBehaviour
         return target;
     }
 
-    private IEnumerator NextCheck()
-    {
-        if (_stageIndex == _stageCount - 1)
-        {
-            EndStage();
-        }
-        else
-        {
-            CreateMoney();
 
-            while (isNext)
-            {
-                yield return null;
-            }
-
-
-            deadEnemies.Clear();
-            _stageIndex++;
-
-            NextStage();
-        }
-    }
 
     private void NextStage()
     {
@@ -287,6 +265,29 @@ public class StageManager : MonoBehaviour
         }
 
         StartCoroutine(NextCheck());
+    }
+    
+    private IEnumerator NextCheck()
+    {
+        if (_stageIndex == _stageCount - 1)
+        {
+            EndStage();
+        }
+        else
+        {
+            CreateMoney();
+
+            while (isNext)
+            {
+                yield return null;
+            }
+
+
+            deadEnemies.Clear();
+            _stageIndex++;
+
+            NextStage();
+        }
     }
 
     private void GetEffect()

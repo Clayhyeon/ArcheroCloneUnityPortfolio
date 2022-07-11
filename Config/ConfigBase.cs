@@ -16,5 +16,4 @@ public class ConfigBase : ScriptableObject, IComparable
         var configBase = (ConfigBase) obj;
         return Id.CompareTo((configBase.Id));
     }
-    
 }

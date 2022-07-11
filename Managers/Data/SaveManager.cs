@@ -10,7 +10,6 @@ public class SaveManager : Singleton<SaveManager>
     private Dictionary<string, object> _documentDic;
 
     public delegate void LoadPlayerHandler();
-
     public event LoadPlayerHandler OnLoadPlayerCompleted;
     
     private bool _isExistPlayer;
